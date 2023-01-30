@@ -28,9 +28,6 @@ const eslintConfig = {
     'one-var': 0,
     'no-trailing-spaces': [ 'warn', { skipBlankLines: true }],
   },
-  env: {
-    jest: true,
-  },
   globals: {
     window: false,
     mock: false,

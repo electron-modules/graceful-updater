@@ -27,7 +27,6 @@ describe('test/utils/index.test.ts', () => {
       const execPath = ['', 'Applications', 'ElectronUpdator.app', 'Contents', 'MacOS', 'ElectronUpdator'].join(sep);
       mock(process, 'execPath', execPath);
       const result = getMacOSAppPath();
-      console.log(result);
       assert.equal(result, ['', 'Applications', 'ElectronUpdator.app'].join(sep));
     });
 
@@ -35,7 +34,6 @@ describe('test/utils/index.test.ts', () => {
       const execPath = ['', 'Applications', 'Test', 'ElectronUpdator.app', 'Contents', 'MacOS', 'ElectronUpdator'].join(sep);
       mock(process, 'execPath', execPath);
       const result = getMacOSAppPath();
-      console.log(result);
       assert.equal(result, ['', 'Applications', 'Test', 'ElectronUpdator.app'].join(sep));
     });
   });

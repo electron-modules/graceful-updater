@@ -18,11 +18,10 @@
 [download-url]: https://npmjs.org/package/electron-updator
 
 > electron updator
-
 ## Installment
 
 ```bash
-$ npm i electron-updator --save-dev
+$ npm i electron-updator --save
 ```
 
 ## License

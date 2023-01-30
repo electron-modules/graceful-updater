@@ -48,6 +48,8 @@
     "electron": "18",
     "electron-windows": "18",
     "eslint": "^7.32.0",
+    "eslint-config-egg": "^9.0.0",
+    "eslint-plugin-no-only-tests": "^2.6.0",
     "git-contributor": "*",
     "husky": "^7.0.4",
     "mm": "^3.0.2",

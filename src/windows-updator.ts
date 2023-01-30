@@ -6,7 +6,7 @@ import {
   IAvailableUpdate,
   IAppUpdatorOptions,
 } from '@/common/types';
-import { UpdateType } from '@/common/constants';
+import { EventType, UpdateType } from '@/common/constants';
 import { sudoPromptExec } from '@/utils/sudo-prompt-exec';
 import { AppUpdator } from '@/app-updator';
 import { execAsync, getExecuteFile } from '@/utils';

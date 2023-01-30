@@ -74,18 +74,6 @@ export abstract class AppUpdator extends EventEmitter {
 
   public async checkForUpdates(executeType: ExecuteType = ExecuteType.Auto): Promise<void> {
     this.logger.info(`AppUpdator#checkForUpdates:state is ${this.state}`);
-    if (executeType === ExecuteType.User) {
-      if (this.state === StateType.Downloaded) {
-        this.logger.info(`AppUpdator#checkForUpdates:UPDATE_DOWNLOADED`);
-        this.emit(EventType.UPDATE_DOWNLOADED, {
-          executeType,
-        });
-      } else {
-        this.logger.info(`AppUpdator#checkForUpdates:UPDATE_NOT_AVAILABLE`);
-        this.emit(EventType.UPDATE_NOT_AVAILABLE, { updateInfo: this.updateInfo });
-      }
-      return;
-    }
     this.setState(StateType.Idle);
     try {
       // 新一轮更新流程，更新 TimeStamp
@@ -93,25 +81,26 @@ export abstract class AppUpdator extends EventEmitter {
       this.setState(StateType.CheckingForUpdate);
       this.emit(EventType.CHECKING_FOR_UPDATE);
       const updateInfoResponse = await requestUpdateInfo(this.options as IAppUpdatorOptions);
-      this.updateInfo = (
-        this.options?.responseFormatter ? this.options?.responseFormatter(updateInfoResponse) : updateInfoResponse
-      ) as IUpdateInfo;
+      this.updateInfo = (this.options?.responseFormatter ? this.options?.responseFormatter(updateInfoResponse) : updateInfoResponse) as IUpdateInfo;
 
       const needUpdate = this.options?.needUpdate(updateInfoResponse);
       if (!needUpdate) {
         this.logger.info(`updateInfo is ${JSON.stringify(this.updateInfo)},needUpdate is false`);
-        this.emit(EventType.UPDATE_NOT_AVAILABLE, { updateInfo: this.updateInfo });
+        this.emit(EventType.UPDATE_NOT_AVAILABLE, {
+          updateInfo: this.updateInfo,
+          executeType,
+        });
         this.setState(StateType.Idle);
         return;
       }
-      this.logger.info(`AppUpdator#checkForUpdates:needUpdate is true`);
+      this.logger.info('AppUpdator#checkForUpdates:needUpdate is true');
       this.availableUpdate = this.doGetAvailableUpdateInfo(this.updateInfo);
 
-      if (!this.options?.autoDownload) {
-        this.logger.info(`AppUpdator#checkForUpdates:emit UPDATE_AVAILABLE`);
+      if (!this.options?.autoDownload || executeType === ExecuteType.User) {
+        this.logger.info('AppUpdator#checkForUpdates:emit UPDATE_AVAILABLE');
         this.emit(EventType.UPDATE_AVAILABLE, {
-          executeType,
           updateInfo: this.updateInfo,
+          executeType,
         });
         return;
       }
@@ -129,7 +118,7 @@ export abstract class AppUpdator extends EventEmitter {
     await this.downloadUpdateFile(this.updateInfo as IUpdateInfo);
     const result = await this.preCheck();
     if (result.success) {
-      this.logger.info(`AppUpdator#downloadUpdate:emit UPDATE_DOWNLOADED`);
+      this.logger.info('AppUpdator#downloadUpdate:emit UPDATE_DOWNLOADED');
       this.emit(EventType.UPDATE_DOWNLOADED, {
         executeType,
       });
@@ -142,6 +131,7 @@ export abstract class AppUpdator extends EventEmitter {
   public async quitAndInstall() {
     this.logger.info(`AppUpdator#quitAndInstall:state is ${this.state}`);
     if (this.state !== StateType.Downloaded) {
+      this.downloadUpdate();
       return;
     }
     this.setState(StateType.Idle);
@@ -153,7 +143,7 @@ export abstract class AppUpdator extends EventEmitter {
         result = await this.doQuitAndInstallAsar();
       }
       if (result.success) {
-        this.logger.warn(`AppUpdator#quitAndInstall:install success`);
+        this.logger.warn('AppUpdator#quitAndInstall:install success');
         this.emit(EventType.BEFORE_QUIT_FOR_UPDATE);
       } else {
         result.message = `error: ${result.error?.message}`;
@@ -165,12 +155,12 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   protected async preCheckForAsar(): Promise<IInstallResult> {
-    this.logger.info(`AppUpdator#preCheckForAsar`);
+    this.logger.info('AppUpdator#preCheckForAsar');
     return await this.unzip();
   }
 
   protected async preCheck() {
-    this.logger.info(`AppUpdator#preCheck`);
+    this.logger.info('AppUpdator#preCheck');
     const { resourcePath } = this.availableUpdate;
 
     if (this.state !== StateType.Downloaded) {
@@ -182,7 +172,7 @@ export abstract class AppUpdator extends EventEmitter {
 
     // 清理老包
     try {
-      this.logger.info(`AppUpdator#preCheck:cleanOldArchive`);
+      this.logger.info('AppUpdator#preCheck:cleanOldArchive');
       await cleanOldArchive(resourcePath);
     } catch (e) {
       this.logError(e);
@@ -232,7 +222,7 @@ export abstract class AppUpdator extends EventEmitter {
           this.emit(EventType.UPDATE_DOWNLOAD_PROGRESS, data);
         },
       } as IDownloadFileOptions);
-      this.logger.info(`AppUpdator#downloadUpdateFile:Downloaded`);
+      this.logger.info('AppUpdator#downloadUpdateFile:Downloaded');
       this.setState(StateType.Downloaded);
     } catch (e) {
       this.setState(StateType.Idle);
@@ -242,7 +232,7 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   protected async unzip(): Promise<IInstallResult> {
-    this.logger.info(`AppUpdator#unzip:start`);
+    this.logger.info('AppUpdator#unzip:start');
     try {
       const result = await this.doUnzip();
       if (!result.success) {

@@ -1,6 +1,6 @@
 {
   "name": "electron-updator",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "electron-updator is a software updator management solution for Electron applications, It is convenient to complete full software update and dynamic update.",
   "scripts": {
     "build": "sh ./build.sh",
@@ -48,6 +48,8 @@
     "electron": "18",
     "electron-windows": "18",
     "eslint": "^7.32.0",
+    "eslint-config-egg": "^9.0.0",
+    "eslint-plugin-no-only-tests": "^2.6.0",
     "git-contributor": "*",
     "husky": "^7.0.4",
     "mm": "^3.0.2",

@@ -6,7 +6,7 @@ import {
   IAvailableUpdate,
   IAppUpdatorOptions,
 } from '@/common/types';
-import { EventType, OldArchivePrefix, UpdateType } from '@/common/constants';
+import { OldArchivePrefix, UpdateType } from '@/common/constants';
 import installMacosDmg from '@/utils/install-macos-dmg';
 import { execAsync, existsAsync, renameAsync } from '@/utils';
 
@@ -99,10 +99,6 @@ export class MacUpdator extends AppUpdator {
         error,
       };
     }
-    this.logger.warn('AppUpdator#quitAndInstall:install success');
-    this.emit(EventType.BEFORE_QUIT_FOR_UPDATE);
-    // 重启应用
-    this.app.relaunch();
     return {
       success: true,
     };

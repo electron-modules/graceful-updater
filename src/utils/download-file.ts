@@ -16,6 +16,7 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
   logger.info('downloadFile#downloadFile (start)');
   const writeStream = createWriteStream(targetDir);
   let currentLength = 0;
+  let currentProgress = 0;
   progressHandle({
     status: DownloadProgressStatus.Begin,
   });
@@ -33,9 +34,12 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
           try {
             currentLength += data.length;
             const progress = (currentLength / totalLength) * 100;
+            if (progress > currentProgress) {
+              currentProgress++;
+            }
             progressHandle({
               status: DownloadProgressStatus.Downloading,
-              progress,
+              progress: currentProgress,
               url,
               signature,
               data,

@@ -1,0 +1,22 @@
+{
+  "ts-node": {
+    "compiler": "ttypescript",
+  },
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": [
+      "../node_modules/@types",
+      "../typings",
+      "./typings",
+    ],
+    "types": ["node", "mocha"],
+  },
+  "include": [
+    ".",
+    "../src",
+  ],
+  "exclude": [
+    "../app/web",
+    "node_modules*",
+  ]
+}

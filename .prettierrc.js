@@ -1,0 +1,11 @@
+'use strict';
+
+module.exports = {
+  tabWidth: 2,
+  printWidth: 150,
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  endOfLine: 'auto',
+  useTabs: false
+};

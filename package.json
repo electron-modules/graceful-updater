@@ -1,6 +1,6 @@
 {
   "name": "electron-updator",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "electron-updator is a software updator management solution for Electron applications, It is convenient to complete full software update and dynamic update.",
   "scripts": {
     "build": "sh ./build.sh",

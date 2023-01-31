@@ -115,8 +115,8 @@ export abstract class AppUpdator extends EventEmitter {
 
   async downloadUpdate(executeType: ExecuteType = ExecuteType.User) {
     this.logger.info(`ElectronUpdator#downloadUpdate:executeType is ${executeType}`);
-    await this.downloadUpdateFile(this.updateInfo as IUpdateInfo);
-    const result = await this.preCheck();
+    await this.downloadUpdateFile(this.updateInfo as IUpdateInfo, executeType);
+    const result = await this.preCheck(executeType);
     if (result.success) {
       this.logger.info('ElectronUpdator#downloadUpdate:emit UPDATE_DOWNLOADED');
       this.emit(EventType.UPDATE_DOWNLOADED, {
@@ -159,7 +159,7 @@ export abstract class AppUpdator extends EventEmitter {
     return await this.unzip();
   }
 
-  protected async preCheck() {
+  protected async preCheck(executeType: ExecuteType) {
     this.logger.info('ElectronUpdator#preCheck');
     const { resourcePath } = this.availableUpdate;
 
@@ -197,14 +197,17 @@ export abstract class AppUpdator extends EventEmitter {
     }
 
     if (this.updateInfo?.updateType === UpdateType.Package) {
-      result = await this.doPreCheckForPackage();
+      if (executeType === ExecuteType.Auto) {
+        // 自动安装时，才进行预检查，提升安装效率
+        result = await this.doPreCheckForPackage();
+      }
     } else {
       result = await this.preCheckForAsar();
     }
     return result;
   }
 
-  protected async downloadUpdateFile(updateInfo: IUpdateInfo) {
+  protected async downloadUpdateFile(updateInfo: IUpdateInfo, executeType: ExecuteType) {
     if (this.state !== StateType.CheckingForUpdate) {
       throw new Error(`ElectronUpdator#downloadUpdateFile:update status(${this.state}) error`);
     }
@@ -219,7 +222,7 @@ export abstract class AppUpdator extends EventEmitter {
         targetDir: downloadTargetDir,
         emit: this.emit,
         progressHandle: (data: any) => {
-          this.emit(EventType.UPDATE_DOWNLOAD_PROGRESS, data);
+          this.emit(EventType.UPDATE_DOWNLOAD_PROGRESS, { ...data, executeType });
         },
       } as IDownloadFileOptions);
       this.logger.info('ElectronUpdator#downloadUpdateFile:Downloaded');

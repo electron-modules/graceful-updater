@@ -14,7 +14,7 @@ import { execAsync, getExecuteFile } from '@/utils';
 export class WindowsUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
     this.logger.info('WindowsUpdator#doGetAvailableUpdateInfo:start');
-    let resourcePath = path.resolve(this.app.userDataPath);
+    const resourcePath = path.resolve(this.app.userDataPath);
     const latestAsarPath = path.resolve(resourcePath, 'latest.asar');
     const latestAppPath = path.resolve(resourcePath, 'latest');
     let downloadTargetDir = `${latestAsarPath}.zip`;

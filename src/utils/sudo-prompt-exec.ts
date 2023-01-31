@@ -7,7 +7,7 @@ function sudoPromptExec(appUpdatorOptions: IAppUpdatorOptions, logger: ILogger, 
   };
   return new Promise((resolve, reject) => {
     logger.warn(`update#sudoPromptExec_shell_${shell}`);
-    sudoPrompt.exec(shell, options, (error: any, stdout: any, _: any) => {
+    sudoPrompt.exec(shell, options, (error: any, stdout: any) => {
       if (error) {
         reject(error);
         logger.error(`update#sudoPromptExec_error_${error}`);

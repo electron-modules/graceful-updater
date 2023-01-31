@@ -5,7 +5,7 @@
   "scripts": {
     "build": "sh ./build.sh",
     "test": "egg-bin test test/**/index.test.ts",
-    "lint": "eslint --fix --quiet --ext .js,.jsx ./src",
+    "lint": "eslint --fix --quiet --ext .js,.ts ./src",
     "prepublishOnly": "npm run build",
     "contributor": "git-contributor",
     "dev": "ttsc -p tsconfig.json -watch"
@@ -48,8 +48,8 @@
     "electron": "18",
     "electron-windows": "18",
     "eslint": "^7.32.0",
-    "eslint-config-egg": "^9.0.0",
-    "eslint-plugin-no-only-tests": "^2.6.0",
+    "eslint-config-egg": "^12.1.0",
+    "eslint-plugin-no-only-tests": "^3.1.0",
     "git-contributor": "*",
     "husky": "^7.0.4",
     "mm": "^3.0.2",

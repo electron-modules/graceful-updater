@@ -79,7 +79,7 @@ export class WindowsUpdator extends AppUpdator {
     const executeCommand = `"${updateExePath}" "${targetPath}" "${resourcePath}" "${productName}.exe" "${exePath}"`;
     try {
       await sudoPromptExec(this.options as IAppUpdatorOptions, this.logger, executeCommand);
-      this.logger.warn('AppUpdator#quitAndInstall:install success');
+      this.logger.warn('ElectronUpdator#quitAndInstall:install success');
       this.emit(EventType.BEFORE_QUIT_FOR_UPDATE);
       return Promise.resolve({ success: true });
     } catch (error) {

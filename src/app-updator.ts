@@ -29,7 +29,7 @@ export abstract class AppUpdator extends EventEmitter {
     this.logger = this._wrapLogger(options.logger as ILogger);
     this.app = app || new ElectronAppAdapter();
     this.startTimeStamp = new Date().getTime();
-    this.logger.info('AppUpdator#constructor');
+    this.logger.info('ElectronUpdator#constructor');
     this.availableUpdate = {
       resourcePath: '',
       latestAsarPath: '',
@@ -61,19 +61,19 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   private setState(state: StateType): void {
-    this.logger.info(`AppUpdator#setState${state}`);
+    this.logger.info(`ElectronUpdator#setState${state}`);
     this.state = state;
   }
 
   public setFeedUrl(url: string) {
-    this.logger.info(`AppUpdator#setFeedUrl:url is ${url}`);
+    this.logger.info(`ElectronUpdator#setFeedUrl:url is ${url}`);
     if (url && this.options) {
       this.options.url = url;
     }
   }
 
   public async checkForUpdates(executeType: ExecuteType = ExecuteType.Auto): Promise<void> {
-    this.logger.info(`AppUpdator#checkForUpdates:state is ${this.state}`);
+    this.logger.info(`ElectronUpdator#checkForUpdates:state is ${this.state}`);
     this.setState(StateType.Idle);
     try {
       // 新一轮更新流程，更新 TimeStamp
@@ -93,11 +93,11 @@ export abstract class AppUpdator extends EventEmitter {
         this.setState(StateType.Idle);
         return;
       }
-      this.logger.info('AppUpdator#checkForUpdates:needUpdate is true');
+      this.logger.info('ElectronUpdator#checkForUpdates:needUpdate is true');
       this.availableUpdate = this.doGetAvailableUpdateInfo(this.updateInfo);
 
       if (!this.options?.autoDownload || executeType === ExecuteType.User) {
-        this.logger.info('AppUpdator#checkForUpdates:emit UPDATE_AVAILABLE');
+        this.logger.info('ElectronUpdator#checkForUpdates:emit UPDATE_AVAILABLE');
         this.emit(EventType.UPDATE_AVAILABLE, {
           updateInfo: this.updateInfo,
           executeType,
@@ -114,11 +114,11 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   async downloadUpdate(executeType: ExecuteType = ExecuteType.User) {
-    this.logger.info(`AppUpdator#downloadUpdate:executeType is ${executeType}`);
+    this.logger.info(`ElectronUpdator#downloadUpdate:executeType is ${executeType}`);
     await this.downloadUpdateFile(this.updateInfo as IUpdateInfo);
     const result = await this.preCheck();
     if (result.success) {
-      this.logger.info('AppUpdator#downloadUpdate:emit UPDATE_DOWNLOADED');
+      this.logger.info('ElectronUpdator#downloadUpdate:emit UPDATE_DOWNLOADED');
       this.emit(EventType.UPDATE_DOWNLOADED, {
         executeType,
       });
@@ -129,7 +129,7 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   public async quitAndInstall() {
-    this.logger.info(`AppUpdator#quitAndInstall:state is ${this.state}`);
+    this.logger.info(`ElectronUpdator#quitAndInstall:state is ${this.state}`);
     if (this.state !== StateType.Downloaded) {
       this.downloadUpdate();
       return;
@@ -143,7 +143,7 @@ export abstract class AppUpdator extends EventEmitter {
         result = await this.doQuitAndInstallAsar();
       }
       if (result.success) {
-        this.logger.warn('AppUpdator#quitAndInstall:install success');
+        this.logger.warn('ElectronUpdator#quitAndInstall:install success');
         this.emit(EventType.BEFORE_QUIT_FOR_UPDATE);
       } else {
         result.message = `error: ${result.error?.message}`;
@@ -155,24 +155,24 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   protected async preCheckForAsar(): Promise<IInstallResult> {
-    this.logger.info('AppUpdator#preCheckForAsar');
+    this.logger.info('ElectronUpdator#preCheckForAsar');
     return await this.unzip();
   }
 
   protected async preCheck() {
-    this.logger.info('AppUpdator#preCheck');
+    this.logger.info('ElectronUpdator#preCheck');
     const { resourcePath } = this.availableUpdate;
 
     if (this.state !== StateType.Downloaded) {
       return {
         success: false,
-        error: new Error(`AppUpdator#preCheck:update status(${this.state}) error`),
+        error: new Error(`ElectronUpdator#preCheck:update status(${this.state}) error`),
       };
     }
 
     // 清理老包
     try {
-      this.logger.info('AppUpdator#preCheck:cleanOldArchive');
+      this.logger.info('ElectronUpdator#preCheck:cleanOldArchive');
       await cleanOldArchive(resourcePath);
     } catch (e) {
       this.logError(e);
@@ -206,7 +206,7 @@ export abstract class AppUpdator extends EventEmitter {
 
   protected async downloadUpdateFile(updateInfo: IUpdateInfo) {
     if (this.state !== StateType.CheckingForUpdate) {
-      throw new Error(`AppUpdator#downloadUpdateFile:update status(${this.state}) error`);
+      throw new Error(`ElectronUpdator#downloadUpdateFile:update status(${this.state}) error`);
     }
     const { url, signature } = updateInfo.files[0];
     const { downloadTargetDir } = this.availableUpdate;
@@ -222,7 +222,7 @@ export abstract class AppUpdator extends EventEmitter {
           this.emit(EventType.UPDATE_DOWNLOAD_PROGRESS, data);
         },
       } as IDownloadFileOptions);
-      this.logger.info('AppUpdator#downloadUpdateFile:Downloaded');
+      this.logger.info('ElectronUpdator#downloadUpdateFile:Downloaded');
       this.setState(StateType.Downloaded);
     } catch (e) {
       this.setState(StateType.Idle);
@@ -232,7 +232,7 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   protected async unzip(): Promise<IInstallResult> {
-    this.logger.info('AppUpdator#unzip:start');
+    this.logger.info('ElectronUpdator#unzip:start');
     try {
       const result = await this.doUnzip();
       if (!result.success) {

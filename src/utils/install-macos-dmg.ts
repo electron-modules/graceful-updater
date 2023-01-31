@@ -60,8 +60,8 @@ export default async (
       if (preCheck) {
         _log(logger, error);
       }
+      // eslint-disable-next-line
       return {
-        // eslint-disable-line
         success: false,
         error,
       };
@@ -83,8 +83,8 @@ export default async (
       if (preCheck) {
         _log(logger, error);
       }
+      // eslint-disable-next-line
       return {
-        // eslint-disable-line
         success: false,
         error,
       };
@@ -118,8 +118,8 @@ export default async (
     });
     if (!tmpPathExist) {
       const error = new Error('cp to tmp path fail');
+      // eslint-disable-next-line
       return {
-        // eslint-disable-line
         success: false,
         error,
       };
@@ -140,8 +140,8 @@ export default async (
     if (!appExist) {
       const error = new Error('cp to app fail');
       await spawnAsync('mv', [ tmpPath, appPath ]);
+      // eslint-disable-next-line
       return {
-        // eslint-disable-line
         success: false,
         error,
       };

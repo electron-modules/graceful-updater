@@ -26,7 +26,7 @@ export const getMacOSAppPath = () => {
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const waitUntil = async (handle: Function, options = { retryTime: 10, ms: 1000 }) => {
+export const waitUntil = async (handle: () => boolean, options = { retryTime: 10, ms: 1000 }) => {
   let retryTime = 0;
   const p: any = async () => {
     const isOk = handle();

@@ -20,7 +20,7 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
   progressHandle({
     status: DownloadProgressStatus.Begin,
   });
-  return new Promise((resolve: Function, reject: Function) => {
+  return new Promise((resolve: (value?: unknown) => void, reject: (value: unknown) => void) => {
     urllib
       .request(url, {
         streaming: true,

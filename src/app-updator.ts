@@ -1,5 +1,4 @@
 import { EventEmitter } from 'eventemitter3';
-import _ from 'lodash';
 import {
   ILogger,
   IInstallResult,
@@ -43,7 +42,7 @@ export abstract class AppUpdator extends EventEmitter {
     }
     const _logger = { ...logger };
 
-    const _wrap = (message: string, callback: Function) => {
+    const _wrap = (message: string, callback: (message: string) => any) => {
       callback(`ElectronUpdator(${this.startTimeStamp})${message}`);
     };
 

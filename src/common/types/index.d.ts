@@ -45,9 +45,9 @@ export interface IInstallResult {
 export interface IAppUpdatorOptions {
   logger?: ILogger;
   verify?: any;
-  responseFormatter?: function;
-  dmgTitleFormatter?: function;
-  needUpdate?: function;
+  responseFormatter?: (res: object) => object;
+  dmgTitleFormatter?: (res: object, updateInfo: IUpdateInfo) => string;
+  needUpdate: (res: object) => boolean;
   url: string;
   autoDownload?: boolean;
   productName?: string;
@@ -58,7 +58,7 @@ export interface IDownloadFileOptions {
   url: string;
   signature: string;
   targetDir: string;
-  progressHandle: Function;
+  progressHandle: (status: DownloadProgressStatus) => void;
 }
 
 export interface IAvailableUpdate {

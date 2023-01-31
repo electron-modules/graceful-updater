@@ -25,7 +25,7 @@ export default async (
   const tmpPath = path.join(os.tmpdir(), String(new Date().getTime())); // 本地临时文件使用的目录
   const volumesPath = path.join(
     '/Volumes',
-    updatorOptions.dmgTitleFormatter ? updatorOptions.dmgTitleFormatter(updatorOptions, updateInfo) : productName,
+    updatorOptions.dmgTitleFormatter ? updatorOptions.dmgTitleFormatter(updatorOptions, updateInfo) : (productName as string),
   );
   const volumesAppPath = path.join(volumesPath, `${productName}.app`);
 
@@ -61,6 +61,7 @@ export default async (
         _log(logger, error);
       }
       return {
+        // eslint-disable-line
         success: false,
         error,
       };
@@ -83,6 +84,7 @@ export default async (
         _log(logger, error);
       }
       return {
+        // eslint-disable-line
         success: false,
         error,
       };
@@ -117,6 +119,7 @@ export default async (
     if (!tmpPathExist) {
       const error = new Error('cp to tmp path fail');
       return {
+        // eslint-disable-line
         success: false,
         error,
       };
@@ -138,6 +141,7 @@ export default async (
       const error = new Error('cp to app fail');
       await spawnAsync('mv', [ tmpPath, appPath ]);
       return {
+        // eslint-disable-line
         success: false,
         error,
       };

@@ -11,10 +11,6 @@ import installMacosDmg from '@/utils/install-macos-dmg';
 import { execAsync, existsAsync, renameAsync } from '@/utils';
 
 export class MacUpdator extends AppUpdator {
-  constructor(options: IAppUpdatorOptions) {
-    super(options);
-  }
-
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
     this.logger.info('MacUpdator#doGetAvailableUpdateInfo:start');
     const exePath = this.app.exePath;

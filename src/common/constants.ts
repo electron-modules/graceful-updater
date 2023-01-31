@@ -16,7 +16,7 @@ export enum InstallResultType {
 /**
  * 更新状态
  */
-export const enum StateType {
+export enum StateType {
   /**
    * 空闲
    */

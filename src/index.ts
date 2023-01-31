@@ -1,8 +1,13 @@
-import { UpdateType, EventType, ExecuteType, DownloadProgressStatus } from '@/common/constants';
+import { UpdateType, EventType, ExecuteType, DownloadProgressStatus, StateType } from '@/common/constants';
 import { MacUpdator } from '@/mac-updator';
 import { WindowsUpdator } from '@/windows-updator';
 
 export default {
-  UpdateType, EventType, ExecuteType,
-  MacUpdator, WindowsUpdator, DownloadProgressStatus,
+  UpdateType,
+  EventType,
+  ExecuteType,
+  StateType,
+  MacUpdator,
+  WindowsUpdator,
+  DownloadProgressStatus,
 };

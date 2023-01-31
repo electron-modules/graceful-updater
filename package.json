@@ -1,6 +1,6 @@
 {
   "name": "electron-updator",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "electron-updator is a software updator management solution for Electron applications, It is convenient to complete full software update and dynamic update.",
   "scripts": {
     "build": "sh ./build.sh",
@@ -26,11 +26,11 @@
   },
   "dependencies": {
     "eventemitter3": "^4.0.0",
-    "lodash": "4.17.21",
-    "moment": "2.29.4",
+    "lodash": "4",
+    "moment": "2",
     "rimraf-alt": "*",
     "sudo-prompt-alt": "9",
-    "urllib": "2.34.1"
+    "urllib": "2"
   },
   "devDependencies": {
     "@applint/spec": "^1.2.0",

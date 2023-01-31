@@ -1,9 +1,9 @@
 import path from 'path';
-import { spawn, exec } from 'child_process';
 import util from 'util';
 import urllib from 'urllib';
 import sudoPrompt from 'sudo-prompt-alt';
 import rimraf from 'rimraf-alt';
+import { spawn, exec } from 'child_process';
 import { rename, exists, readdir, existsSync, createWriteStream } from 'original-fs';
 import { IUpdateInfo, IAppUpdatorOptions } from '@/common/types';
 import { OldArchivePrefix } from '@/common/constants';

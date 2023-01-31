@@ -105,7 +105,7 @@ export class MacUpdator extends AppUpdator {
   }
 
   protected override async doQuitAndInstallPackage() {
-    this.logger.info('AppUpdator#doQuitAndInstallPackage:start');
+    this.logger.info('ElectronUpdator#doQuitAndInstallPackage:start');
     return await installMacosDmg(
       this.options as IAppUpdatorOptions,
       this.logger,

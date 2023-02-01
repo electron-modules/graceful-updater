@@ -45,7 +45,7 @@ export interface IInstallResult {
 export interface IAppUpdatorOptions {
   logger?: ILogger;
   verify?: any;
-  responseDataFormatter?: (res: object) => object;
+  updateInfoFormatter?: (res: object) => object;
   dmgTitleFormatter?: (res: object, updateInfo: IUpdateInfo) => string;
   ifNeedUpdate: (res: object) => boolean;
   url: string;

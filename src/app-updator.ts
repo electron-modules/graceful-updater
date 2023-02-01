@@ -80,7 +80,7 @@ export abstract class AppUpdator extends EventEmitter {
       this.setState(StateType.CheckingForUpdate);
       this.emit(EventType.CHECKING_FOR_UPDATE);
       const updateInfoResponse = await requestUpdateInfo(this.options as IAppUpdatorOptions);
-      this.updateInfo = (this.options?.responseDataFormatter ? this.options?.responseDataFormatter(updateInfoResponse) : updateInfoResponse) as IUpdateInfo;
+      this.updateInfo = (this.options?.updateInfoFormatter ? this.options?.updateInfoFormatter(updateInfoResponse) : updateInfoResponse) as IUpdateInfo;
 
       const ifNeedUpdate = this.options?.ifNeedUpdate(updateInfoResponse);
       if (!ifNeedUpdate) {

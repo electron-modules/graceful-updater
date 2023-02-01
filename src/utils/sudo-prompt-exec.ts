@@ -6,15 +6,15 @@ function sudoPromptExec(appUpdatorOptions: IAppUpdatorOptions, logger: ILogger, 
     name: appUpdatorOptions.productName,
   };
   return new Promise((resolve, reject) => {
-    logger.warn(`update#sudoPromptExec_shell_${shell}`);
+    logger.warn(`ElectronUpdator#update#sudoPromptExec_shell_${shell}`);
     sudoPrompt.exec(shell, options, (error: any, stdout: any) => {
       if (error) {
         reject(error);
-        logger.error(`update#sudoPromptExec_error_${error}`);
+        logger.error(`ElectronUpdator#update#sudoPromptExec_error_${error}`);
         return;
       }
       resolve(stdout);
-      logger.warn(`update#sudoPromptExec_stdout_${stdout}`);
+      logger.warn(`ElectronUpdator#update#sudoPromptExec_stdout_${stdout}`);
     });
   });
 }

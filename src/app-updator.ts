@@ -84,7 +84,7 @@ export abstract class AppUpdator extends EventEmitter {
 
       const needUpdate = this.options?.needUpdate(updateInfoResponse);
       if (!needUpdate) {
-        this.logger.info(`updateInfo is ${JSON.stringify(this.updateInfo)},needUpdate is false`);
+        this.logger.info(`ElectronUpdator#updateInfo is ${JSON.stringify(this.updateInfo)},needUpdate is false`);
         this.emit(EventType.UPDATE_NOT_AVAILABLE, {
           updateInfo: this.updateInfo,
           executeType,

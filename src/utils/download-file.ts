@@ -13,7 +13,7 @@ import { createWriteStream } from '.';
  * @return
  */
 export const downloadFile = async ({ logger, url, signature, targetDir, progressHandle }: IDownloadFileOptions) => {
-  logger.info('downloadFile#downloadFile (start)');
+  logger.info('ElectronUpdator#downloadFile#downloadFile (start)');
   const writeStream = createWriteStream(targetDir);
   let currentLength = 0;
   let currentProgress = 0;
@@ -29,7 +29,7 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
       })
       .then((res: any) => {
         const totalLength = res.headers['content-length'];
-        logger.info(`downloadFile#downloadFile (then),totalLength is ${totalLength}`);
+        logger.info(`ElectronUpdator#downloadFile#downloadFile (then),totalLength is ${totalLength}`);
         res.res.on('data', (data: any) => {
           try {
             currentLength += data.length;
@@ -58,7 +58,7 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
               url,
               signature,
             });
-            logger.info('download file success, url:%s, to %s', url, targetDir);
+            logger.info('ElectronUpdator#download file success, url:%s, to %s', url, targetDir);
             resolve();
           } catch (e) {
             reject(e);

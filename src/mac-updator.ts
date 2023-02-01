@@ -12,7 +12,7 @@ import { execAsync, existsAsync, renameAsync } from '@/utils';
 
 export class MacUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
-    this.logger.info('MacUpdator#doGetAvailableUpdateInfo:start');
+    this.logger.info('ElectronUpdator#MacUpdator#doGetAvailableUpdateInfo:start');
     const exePath = this.app.exePath;
     const resourcePath = path.resolve(exePath, '..', '..', 'Resources');
     const latestAsarPath = path.resolve(resourcePath, 'latest.asar');
@@ -29,7 +29,7 @@ export class MacUpdator extends AppUpdator {
   }
 
   protected override async doPreCheckForPackage(): Promise<IInstallResult> {
-    this.logger.info('MacUpdator#doPreCheckForPackage:start');
+    this.logger.info('ElectronUpdator#MacUpdator#doPreCheckForPackage:start');
     // Mac 全量安装前，先进行 dmg 安装检查
     return await installMacosDmg(
       this.options as IAppUpdatorOptions,
@@ -45,7 +45,7 @@ export class MacUpdator extends AppUpdator {
    * @return
    */
   protected override async doUnzip(): Promise<IInstallResult> {
-    this.logger.info('MacUpdator#doUnzip:start');
+    this.logger.info('ElectronUpdator#MacUpdator#doUnzip:start');
     const { resourcePath, downloadTargetDir } = this.availableUpdate;
     try {
       // 直接解压
@@ -65,9 +65,9 @@ export class MacUpdator extends AppUpdator {
   }
 
   protected override async doQuitAndInstallAsar(): Promise<IInstallResult> {
-    this.logger.info('MacUpdator#doQuitAndInstallAsar:start');
+    this.logger.info('ElectronUpdator#MacUpdator#doQuitAndInstallAsar:start');
     if (!this.availableUpdate) {
-      this.logger.error('MacUpdator#doQuitAndInstallAsar:not availableUpdate');
+      this.logger.error('ElectronUpdator#MacUpdator#doQuitAndInstallAsar:not availableUpdate');
       return Promise.resolve({ success: false });
     }
     const { resourcePath, latestAsarPath } = this.availableUpdate;

@@ -13,7 +13,7 @@ import { execAsync, getExecuteFile } from '@/utils';
 
 export class WindowsUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
-    this.logger.info('WindowsUpdator#doGetAvailableUpdateInfo:start');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doGetAvailableUpdateInfo:start');
     const resourcePath = path.resolve(this.app.userDataPath);
     const latestAsarPath = path.resolve(resourcePath, 'latest.asar');
     const latestAppPath = path.resolve(resourcePath, 'latest');
@@ -29,13 +29,13 @@ export class WindowsUpdator extends AppUpdator {
   }
 
   protected override async doPreCheckForPackage(): Promise<IInstallResult> {
-    this.logger.info('WindowsUpdator#doPreCheckForPackage:start');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doPreCheckForPackage:start');
     // Windows 全量安装默认预检正常
     return Promise.resolve({ success: true });
   }
 
   protected override async doUnzip(): Promise<IInstallResult> {
-    this.logger.info('WindowsUpdator#doUnzip:start');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doUnzip:start');
     try {
       const { downloadTargetDir, resourcePath } = this.availableUpdate;
       const unzipExe = getExecuteFile('unzip.exe');
@@ -47,14 +47,14 @@ export class WindowsUpdator extends AppUpdator {
         error,
       };
     }
-    this.logger.info('WindowsUpdator#doUnzip:success');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doUnzip:success');
     return {
       success: true,
     };
   }
 
   protected override async doQuitAndInstallPackage(): Promise<IInstallResult> {
-    this.logger.info('WindowsUpdator#doQuitAndInstallPackage:success');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doQuitAndInstallPackage:success');
     const { downloadTargetDir } = this.availableUpdate;
     try {
       // Windows 全量安装
@@ -70,7 +70,7 @@ export class WindowsUpdator extends AppUpdator {
   }
 
   protected override async doQuitAndInstallAsar(): Promise<IInstallResult> {
-    this.logger.info('WindowsUpdator#doQuitAndInstallAsar:start');
+    this.logger.info('ElectronUpdator#WindowsUpdator#doQuitAndInstallAsar:start');
     const productName = this.options?.productName;
     const { resourcePath } = this.availableUpdate;
     const exePath = this.app.exePath;

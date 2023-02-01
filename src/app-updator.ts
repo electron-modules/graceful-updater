@@ -80,11 +80,11 @@ export abstract class AppUpdator extends EventEmitter {
       this.setState(StateType.CheckingForUpdate);
       this.emit(EventType.CHECKING_FOR_UPDATE);
       const updateInfoResponse = await requestUpdateInfo(this.options as IAppUpdatorOptions);
-      this.updateInfo = (this.options?.responseFormatter ? this.options?.responseFormatter(updateInfoResponse) : updateInfoResponse) as IUpdateInfo;
+      this.updateInfo = (this.options?.updateInfoFormatter ? this.options?.updateInfoFormatter(updateInfoResponse) : updateInfoResponse) as IUpdateInfo;
 
-      const needUpdate = this.options?.needUpdate(updateInfoResponse);
-      if (!needUpdate) {
-        this.logger.info(`ElectronUpdator#updateInfo is ${JSON.stringify(this.updateInfo)},needUpdate is false`);
+      const ifNeedUpdate = this.options?.ifNeedUpdate(updateInfoResponse);
+      if (!ifNeedUpdate) {
+        this.logger.info(`ElectronUpdator#updateInfo is ${JSON.stringify(this.updateInfo)},ifNeedUpdate is false`);
         this.emit(EventType.UPDATE_NOT_AVAILABLE, {
           updateInfo: this.updateInfo,
           executeType,
@@ -92,7 +92,7 @@ export abstract class AppUpdator extends EventEmitter {
         this.setState(StateType.Idle);
         return;
       }
-      this.logger.info('ElectronUpdator#checkForUpdates:needUpdate is true');
+      this.logger.info('ElectronUpdator#checkForUpdates:ifNeedUpdate is true');
       this.availableUpdate = this.doGetAvailableUpdateInfo(this.updateInfo);
 
       if (!this.options?.autoDownload || executeType === ExecuteType.User) {

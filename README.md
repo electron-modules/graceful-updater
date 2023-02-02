@@ -1,24 +1,24 @@
-# electron-updator
+# graceful-electron-updater
 
 [![NPM version][npm-image]][npm-url]
 [![CI][ci-image]][ci-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/electron-updator.svg
-[npm-url]: https://npmjs.org/package/electron-updator
-[ci-image]: https://github.com/electron-modules/electron-updator/actions/workflows/ci.yml/badge.svg
-[ci-url]: https://github.com/electron-modules/electron-updator/actions/workflows/ci.yml
+[npm-image]: https://img.shields.io/npm/v/graceful-electron-updater.svg
+[npm-url]: https://npmjs.org/package/graceful-electron-updater
+[ci-image]: https://github.com/electron-modules/graceful-electron-updater/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/electron-modules/graceful-electron-updater/actions/workflows/ci.yml
 [node-image]: https://img.shields.io/badge/node.js-%3E=_16-green.svg
 [node-url]: http://nodejs.org/download/
-[download-image]: https://img.shields.io/npm/dm/electron-updator.svg
-[download-url]: https://npmjs.org/package/electron-updator
+[download-image]: https://img.shields.io/npm/dm/graceful-electron-updater.svg
+[download-url]: https://npmjs.org/package/graceful-electron-updater
 
 > electron updator
 ## Installment
 
 ```bash
-$ npm i electron-updator --save
+$ npm i graceful-electron-updater --save
 ```
 
 <!-- GITCONTRIBUTOR_START -->

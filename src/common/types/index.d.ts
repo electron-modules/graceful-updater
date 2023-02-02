@@ -51,6 +51,7 @@ export interface IAppUpdatorOptions {
   url: string;
   autoDownload?: boolean;
   productName?: string;
+  getWindowsHelperExeDir?: () => string;
 }
 
 export interface IDownloadFileOptions {

@@ -112,6 +112,6 @@ export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IU
   return res.data;
 };
 
-export const getExecuteFile = (file: string) => {
-  return path.join(__dirname, '..', 'libs', file);
+export const getExecuteFile = (helperExeFileDir: string, file: string) => {
+  return path.join(helperExeFileDir, file);
 };

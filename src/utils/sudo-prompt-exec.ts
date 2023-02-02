@@ -1,20 +1,20 @@
-import { IAppUpdatorOptions, ILogger } from 'common/types';
+import { ILogger } from 'common/types';
 import { sudoPrompt } from './index';
 
-function sudoPromptExec(appUpdatorOptions: IAppUpdatorOptions, logger: ILogger, shell: string) {
+function sudoPromptExec(logger: ILogger, shell: string) {
   const options = {
-    name: appUpdatorOptions.productName,
+    name: 'SoftwareUpdate',
   };
   return new Promise((resolve, reject) => {
-    logger.warn(`ElectronUpdator#update#sudoPromptExec_shell_${shell}`);
+    logger.warn(`sudoPromptExec#_shell_${shell}`);
     sudoPrompt.exec(shell, options, (error: any, stdout: any) => {
       if (error) {
         reject(error);
-        logger.error(`ElectronUpdator#update#sudoPromptExec_error_${error}`);
+        logger.error(`sudoPromptExec#error_${error}`);
         return;
       }
       resolve(stdout);
-      logger.warn(`ElectronUpdator#update#sudoPromptExec_stdout_${stdout}`);
+      logger.warn(`sudoPromptExec#stdout_${stdout}`);
     });
   });
 }

@@ -112,7 +112,6 @@ export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IU
   return res.data;
 };
 
-export const getExecuteFile = (exePath: string, file: string) => {
-  const updateExePath = path.join(exePath, '..', 'resources', 'app.asar.unpacked', 'node_modules', 'electron-updator');
-  return path.join(updateExePath, 'build', 'libs', file);
+export const getExecuteFile = (file: string) => {
+  return path.join(__dirname, '..', 'libs', file);
 };

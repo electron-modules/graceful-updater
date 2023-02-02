@@ -112,6 +112,23 @@ export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IU
   return res.data;
 };
 
-export const getExecuteFile = (file: string) => {
-  return path.join(__dirname, '..', 'libs', file);
+export const getExecuteFile = (exePath: string, file: string) => {
+  const updateExePath = path.join(exePath, '..', 'resources', 'app.asar.unpacked', 'node_modules', 'electron-updator');
+  return path.join(updateExePath, 'build', 'libs', file);
+};
+
+export const uuid = (n = 6) => {
+  if (n < 2) {
+    throw new RangeError('n is not less than 2');
+  }
+  const CHARS = 'abcdefghigklmnopqrstuvwxyz';
+  const NUMS = '0123456789';
+  const ALL = CHARS + NUMS;
+
+  let repeatStr = '';
+  for (let i = 0; i < n - 2; i++) {
+    repeatStr += 'z';
+  }
+
+  return `xx${repeatStr}`.replace(/[xz]/g, (c) => (c === 'x' ? CHARS[(Math.random() * 26) | 0] : ALL[(Math.random() * 36) | 0]));
 };

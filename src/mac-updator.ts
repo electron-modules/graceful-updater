@@ -1,11 +1,6 @@
 import path from 'path';
 import { AppUpdator } from '@/app-updator';
-import {
-  IInstallResult,
-  IUpdateInfo,
-  IAvailableUpdate,
-  IAppUpdatorOptions,
-} from '@/common/types';
+import { IInstallResult, IUpdateInfo, IAvailableUpdate, IAppUpdatorOptions } from '@/common/types';
 import { OldArchivePrefix, UpdateType } from '@/common/constants';
 import installMacosDmg from '@/utils/install-macos-dmg';
 import { execAsync, existsAsync, renameAsync } from '@/utils';
@@ -45,7 +40,7 @@ export class MacUpdator extends AppUpdator {
    * @return
    */
   protected override async doUnzip(): Promise<IInstallResult> {
-    this.logger.info('ElectronUpdator#MacUpdator#doUnzip:start');
+    this.logger.info('MacUpdator#doUnzip:start');
     const { resourcePath, downloadTargetDir } = this.availableUpdate;
     try {
       // 直接解压
@@ -95,6 +90,8 @@ export class MacUpdator extends AppUpdator {
         error,
       };
     }
+    this.logger.warn('quitAndInstall:install success');
+    this.app.relaunch();
     return {
       success: true,
     };
@@ -102,11 +99,11 @@ export class MacUpdator extends AppUpdator {
 
   protected override async doQuitAndInstallPackage() {
     this.logger.info('ElectronUpdator#doQuitAndInstallPackage:start');
-    return await installMacosDmg(
-      this.options as IAppUpdatorOptions,
-      this.logger,
-      this.availableUpdate,
-      this.updateInfo as IUpdateInfo,
-    );
+    const result = await installMacosDmg(this.options as IAppUpdatorOptions, this.logger, this.availableUpdate, this.updateInfo as IUpdateInfo);
+    if (result.success) {
+      this.logger.warn('quitAndInstall:install success');
+      this.app.relaunch();
+    }
+    return result;
   }
 }

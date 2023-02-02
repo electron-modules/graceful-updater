@@ -28,6 +28,7 @@
     "eventemitter3": "^4.0.0",
     "lodash": "4",
     "moment": "2",
+    "nanoid": "^4.0.0",
     "rimraf-alt": "*",
     "sudo-prompt-alt": "9",
     "urllib": "2"

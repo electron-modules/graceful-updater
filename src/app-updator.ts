@@ -1,4 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
+import { nanoid } from 'nanoid';
 import {
   ILogger,
   IInstallResult,
@@ -10,7 +11,7 @@ import {
 } from '@/common/types';
 import { InstallResultType, StateType, ExecuteType, UpdateType, EventType } from '@/common/constants';
 import { downloadFile } from '@/utils/download-file';
-import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo, uuid } from '@/utils';
+import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo } from '@/utils';
 import { ElectronAppAdapter } from '@/elelctron-app-adapter';
 
 export abstract class AppUpdator extends EventEmitter {
@@ -36,7 +37,7 @@ export abstract class AppUpdator extends EventEmitter {
     };
   }
   _getStartUuid() {
-    return `${uuid(8)}${Date.now()}`;
+    return `${nanoid(16)}${Date.now()}`;
   }
 
   _wrapLogger(logger: ILogger) {

@@ -4,5 +4,5 @@ rm -rf ./build
 # 2. tsc compile 
 `npm bin`/ttsc -p tsconfig.json
 
-# 3. copy libs 
-cp -Rv ./src/libs/ ./build/libs
+# 3. copy helper 
+cp -Rv ./src/helper/ ./build/helper

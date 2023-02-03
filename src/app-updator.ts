@@ -51,18 +51,18 @@ export abstract class AppUpdator extends EventEmitter {
     }
     const _logger = { ...logger };
 
-    const _wrap = (message: string, callback: (message: string) => any) => {
-      callback(`[ElectronUpdator][${this.startUuid}]#${message}`);
+    const _wrap = (message: string, args: any[], callback: (...args: any[]) => any) => {
+      callback(`[ElectronUpdator][${this.startUuid}]#${message}`, ...args);
     };
 
-    _logger.error = (message: string) => {
-      _wrap(message, logger.error);
+    _logger.error = (message: string, ...args: any[]) => {
+      _wrap(message, args, logger.error);
     };
-    _logger.info = (message: string) => {
-      _wrap(message, logger.info);
+    _logger.info = (message: string, ...args: any[]) => {
+      _wrap(message, args, logger.info);
     };
-    _logger.warn = (message: string) => {
-      _wrap(message, logger.warn);
+    _logger.warn = (message: string, ...args: any[]) => {
+      _wrap(message, args, logger.warn);
     };
 
     return _logger;
@@ -267,7 +267,7 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   public logError(e: Error): void {
-    const message = (e.stack || e).toString();
+    const message = (e?.stack || e).toString();
     this.logger.error(message);
   }
 

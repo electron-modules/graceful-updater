@@ -33,8 +33,9 @@ export class WindowsUpdator extends AppUpdator {
     const { downloadTargetDir, resourcePath, latestAsarPath } = this.availableUpdate;
     this.logger.info('WindowsUpdator#doUnzip:start');
     try {
-
-      const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
+      const unzipExe = getExecuteFile(this._windowHelperExeDir, 'unzip.exe');
+      const zipInfoCommand = `"${unzipExe}" -Z -1 "${downloadTargetDir}"`;
+      const zipInfo = await execAsync(zipInfoCommand, {
         cwd: resourcePath,
         maxBuffer: 2 ** 28,
       });
@@ -44,7 +45,6 @@ export class WindowsUpdator extends AppUpdator {
         await renameAsync(currentAsarPath, latestAsarPath);
       }
 
-      const unzipExe = getExecuteFile(this._windowHelperExeDir, 'unzip.exe');
       const executeCommand = `"${unzipExe}" -o "${downloadTargetDir}" -d "${resourcePath}"`;
       await execAsync(executeCommand);
     } catch (error) {

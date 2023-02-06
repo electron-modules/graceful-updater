@@ -49,15 +49,18 @@ export class MacUpdator extends AppUpdator {
         maxBuffer: 2 ** 28,
       });
 
-      const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
-        cwd: resourcePath,
-        maxBuffer: 2 ** 28,
-      });
-      const fileName = zipInfo?.stdout?.trim();
-      if (fileName !== FileName.TARGET_REPLACEMENT_ASAR) {
-        const currentAsarPath = path.join(resourcePath, fileName);
-        await renameAsync(currentAsarPath, latestAsarPath);
+      if (!await existsAsync(latestAsarPath)) {
+        const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
+          cwd: resourcePath,
+          maxBuffer: 2 ** 28,
+        });
+        const fileName = zipInfo?.stdout?.trim();
+        if (fileName !== FileName.TARGET_REPLACEMENT_ASAR) {
+          const currentAsarPath = path.join(resourcePath, fileName);
+          await renameAsync(currentAsarPath, latestAsarPath);
+        }
       }
+
       return {
         success: true,
       };

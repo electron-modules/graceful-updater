@@ -1,7 +1,7 @@
 import path from 'path';
 import { AppUpdator } from '@/app-updator';
 import { IInstallResult, IUpdateInfo, IAvailableUpdate, IAppUpdatorOptions } from '@/common/types';
-import { OldArchivePrefix, UpdateType } from '@/common/constants';
+import { OldArchivePrefix, UpdateType, FileName } from '@/common/constants';
 import installMacosDmg from '@/utils/install-macos-dmg';
 import { execAsync, existsAsync, renameAsync } from '@/utils';
 
@@ -40,9 +40,18 @@ export class MacUpdator extends AppUpdator {
    * @return
    */
   protected override async doUnzip(): Promise<IInstallResult> {
-    const { resourcePath, downloadTargetDir } = this.availableUpdate;
+    const { resourcePath, downloadTargetDir, latestAsarPath } = this.availableUpdate;
     this.logger.info('MacUpdator#doUnzip:start, unzip %s, to %s', downloadTargetDir, resourcePath);
     try {
+      const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
+        cwd: resourcePath,
+        maxBuffer: 2 ** 28,
+      });
+      const fileName = zipInfo?.stdout?.trim();
+      if (fileName !== FileName.RUNTIME_APP_ASAR) {
+        const currentAsarPath = path.join(resourcePath, fileName);
+        await renameAsync(currentAsarPath, latestAsarPath);
+      }
       // 直接解压
       await execAsync(`unzip -o ${downloadTargetDir}`, {
         cwd: resourcePath,
@@ -67,9 +76,9 @@ export class MacUpdator extends AppUpdator {
     }
     const { resourcePath, latestAsarPath } = this.availableUpdate;
     const oldAsarPath = path.resolve(resourcePath, `${OldArchivePrefix}${new Date().getTime()}.asar`);
-    const currentAsarPath = path.resolve(resourcePath, 'app.asar');
+    const currentAsarPath = path.resolve(resourcePath, FileName.RUNTIME_APP_ASAR);
     try {
-      // 将老包改名 app.asar => old-xxxx.asar
+      // 将老包改名 FileName.RUNTIME_APP_ASAR(app.asar) => old-xxxx.asar
       if (await existsAsync(currentAsarPath)) {
         await renameAsync(currentAsarPath, oldAsarPath);
       }

@@ -114,3 +114,7 @@ export enum EventType {
    */
   ERROR = 'error',
 }
+
+export enum FileName {
+  RUNTIME_APP_ASAR = 'app.asar'
+}

@@ -114,3 +114,7 @@ export enum EventType {
    */
   ERROR = 'error',
 }
+
+export enum FileName {
+  TARGET_REPLACEMENT_ASAR = 'latest.asar'
+}

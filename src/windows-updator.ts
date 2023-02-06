@@ -1,10 +1,10 @@
 import path from 'path';
 import { shell } from 'electron';
 import { IInstallResult, IUpdateInfo, IAvailableUpdate } from '@/common/types';
-import { UpdateType } from '@/common/constants';
+import { UpdateType, FileName } from '@/common/constants';
 import { sudoPromptExec } from '@/utils/sudo-prompt-exec';
 import { AppUpdator } from '@/app-updator';
-import { execAsync, getExecuteFile } from '@/utils';
+import { execAsync, existsAsync, getExecuteFile, renameAsync } from '@/utils';
 
 export class WindowsUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
@@ -30,12 +30,25 @@ export class WindowsUpdator extends AppUpdator {
   }
 
   protected override async doUnzip(): Promise<IInstallResult> {
+    const { downloadTargetDir, resourcePath, latestAsarPath } = this.availableUpdate;
     this.logger.info('WindowsUpdator#doUnzip:start');
     try {
-      const { downloadTargetDir, resourcePath } = this.availableUpdate;
       const unzipExe = getExecuteFile(this._windowHelperExeDir, 'unzip.exe');
       const executeCommand = `"${unzipExe}" -o "${downloadTargetDir}" -d "${resourcePath}"`;
       await execAsync(executeCommand);
+
+      if (!await existsAsync(latestAsarPath)) {
+        const zipInfoCommand = `"${unzipExe}" -Z -1 "${downloadTargetDir}"`;
+        const zipInfo = await execAsync(zipInfoCommand, {
+          cwd: resourcePath,
+          maxBuffer: 2 ** 28,
+        });
+        const fileName = zipInfo?.stdout?.trim();
+        if (fileName !== FileName.TARGET_REPLACEMENT_ASAR) {
+          const currentAsarPath = path.join(resourcePath, fileName);
+          await renameAsync(currentAsarPath, latestAsarPath);
+        }
+      }
     } catch (error) {
       return {
         success: false,

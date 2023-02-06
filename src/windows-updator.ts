@@ -30,8 +30,8 @@ export class WindowsUpdator extends AppUpdator {
   }
 
   protected override async doUnzip(): Promise<IInstallResult> {
-    this.logger.info('WindowsUpdator#doUnzip:start');
     const { downloadTargetDir, resourcePath, latestAsarPath } = this.availableUpdate;
+    this.logger.info('WindowsUpdator#doUnzip:start');
     try {
 
       const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {

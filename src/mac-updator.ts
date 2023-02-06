@@ -43,6 +43,12 @@ export class MacUpdator extends AppUpdator {
     const { resourcePath, downloadTargetDir, latestAsarPath } = this.availableUpdate;
     this.logger.info('MacUpdator#doUnzip:start, unzip %s, to %s', downloadTargetDir, resourcePath);
     try {
+      // 直接解压
+      await execAsync(`unzip -o ${downloadTargetDir}`, {
+        cwd: resourcePath,
+        maxBuffer: 2 ** 28,
+      });
+
       const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
         cwd: resourcePath,
         maxBuffer: 2 ** 28,
@@ -52,11 +58,6 @@ export class MacUpdator extends AppUpdator {
         const currentAsarPath = path.join(resourcePath, fileName);
         await renameAsync(currentAsarPath, latestAsarPath);
       }
-      // 直接解压
-      await execAsync(`unzip -o ${downloadTargetDir}`, {
-        cwd: resourcePath,
-        maxBuffer: 2 ** 28,
-      });
       return {
         success: true,
       };

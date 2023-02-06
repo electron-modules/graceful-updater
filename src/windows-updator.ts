@@ -40,7 +40,7 @@ export class WindowsUpdator extends AppUpdator {
         maxBuffer: 2 ** 28,
       });
       const fileName = zipInfo?.stdout?.trim();
-      if (fileName !== FileName.RUNTIME_APP_ASAR) {
+      if (fileName !== FileName.TARGET_REPLACEMENT_ASAR) {
         const currentAsarPath = path.join(resourcePath, fileName);
         await renameAsync(currentAsarPath, latestAsarPath);
       }

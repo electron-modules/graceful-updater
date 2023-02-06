@@ -48,7 +48,7 @@ export class MacUpdator extends AppUpdator {
         maxBuffer: 2 ** 28,
       });
       const fileName = zipInfo?.stdout?.trim();
-      if (fileName !== FileName.RUNTIME_APP_ASAR) {
+      if (fileName !== FileName.TARGET_REPLACEMENT_ASAR) {
         const currentAsarPath = path.join(resourcePath, fileName);
         await renameAsync(currentAsarPath, latestAsarPath);
       }
@@ -76,9 +76,9 @@ export class MacUpdator extends AppUpdator {
     }
     const { resourcePath, latestAsarPath } = this.availableUpdate;
     const oldAsarPath = path.resolve(resourcePath, `${OldArchivePrefix}${new Date().getTime()}.asar`);
-    const currentAsarPath = path.resolve(resourcePath, FileName.RUNTIME_APP_ASAR);
+    const currentAsarPath = path.resolve(resourcePath, 'app.asar');
     try {
-      // 将老包改名 FileName.RUNTIME_APP_ASAR(app.asar) => old-xxxx.asar
+      // 将老包改名 app.asar => old-xxxx.asar
       if (await existsAsync(currentAsarPath)) {
         await renameAsync(currentAsarPath, oldAsarPath);
       }

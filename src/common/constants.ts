@@ -116,5 +116,5 @@ export enum EventType {
 }
 
 export enum FileName {
-  RUNTIME_APP_ASAR = 'app.asar'
+  TARGET_REPLACEMENT_ASAR = 'latest.asar'
 }

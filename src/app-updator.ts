@@ -81,7 +81,7 @@ export abstract class AppUpdator extends EventEmitter {
   }
 
   public async checkForUpdates(executeType: ExecuteType = ExecuteType.Auto): Promise<void> {
-    this.logger.info(`checkForUpdates:state is ${this.state}`);
+    this.logger.info(`checkForUpdates:state is ${this.state},executeType is ${executeType}`);
     this.setState(StateType.Idle);
     try {
       // 新一轮更新流程，更新 startUuid
@@ -120,6 +120,10 @@ export abstract class AppUpdator extends EventEmitter {
       e.customMessage = e.customMessage ? e.customMessage : `${InstallResultType.CheckForUpdatesError}_${e.message}`;
       this.logError(e);
       this.setState(StateType.Idle);
+      this.emit(EventType.UPDATE_NOT_AVAILABLE, {
+        updateInfo: this.updateInfo,
+        executeType,
+      });
     }
   }
 

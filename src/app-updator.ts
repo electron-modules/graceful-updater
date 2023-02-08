@@ -137,8 +137,7 @@ export abstract class AppUpdator extends EventEmitter {
         executeType,
       });
     } else {
-      this.logError(result.error as Error);
-      this.setState(StateType.Idle);
+      this.dispatchError(result.error);
     }
   }
 

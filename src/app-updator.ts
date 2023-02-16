@@ -52,7 +52,7 @@ export abstract class AppUpdator extends EventEmitter {
     const _logger = { ...logger };
 
     const _wrap = (message: string, args: any[], callback: (...args: any[]) => any) => {
-      callback(`[ElectronUpdator][${this.startUuid}]#${message}`, ...args);
+      callback(`[ElectronUpdator][${this.startUuid}][${this.state}]#${message}`, ...args);
     };
 
     _logger.error = (message: string, ...args: any[]) => {
@@ -90,10 +90,10 @@ export abstract class AppUpdator extends EventEmitter {
       this.emit(EventType.CHECKING_FOR_UPDATE);
       const updateInfoResponse = await requestUpdateInfo(this.options as IAppUpdatorOptions);
       this.updateInfo = (
-        this.options?.updateInfoFormatter ? this.options?.updateInfoFormatter(updateInfoResponse) : updateInfoResponse
+        this.options?.updateInfoFormatter ? (await this.options?.updateInfoFormatter(updateInfoResponse)) : updateInfoResponse
       ) as IUpdateInfo;
 
-      const ifNeedUpdate = this.options?.ifNeedUpdate(updateInfoResponse);
+      const ifNeedUpdate = await this.options?.ifNeedUpdate(updateInfoResponse);
       if (!ifNeedUpdate) {
         this.logger.info(`checkForUpdates:updateInfo is ${JSON.stringify(this.updateInfo)},ifNeedUpdate is false`);
         this.emit(EventType.UPDATE_NOT_AVAILABLE, {

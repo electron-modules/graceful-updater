@@ -1,0 +1,28 @@
+{
+  "name": "graceful-updater-windows-helper",
+  "version": "1.0.1",
+  "description": "graceful-updater windows helper.",
+  "scripts": {
+  },
+  "main": "./index.js",
+  "keywords": [
+    "electron",
+    "updator",
+    "auto-updator"
+  ],
+  "files": [
+    "**/*.js",
+    "**/*.exe"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/electron-modules/graceful-updater"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "husky": {
+  },
+  "license": "MIT"
+}

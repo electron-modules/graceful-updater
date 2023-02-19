@@ -15,7 +15,7 @@ import { downloadFile } from '@/utils/download-file';
 import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo } from '@/utils';
 import { ElectronAppAdapter } from '@/elelctron-app-adapter';
 
-const DEFAULT_EXEFILE_DIR = path.join(__dirname, '..', 'helper');
+const { exeFileDir: DEFAULT_EXEFILE_DIR } = require('graceful-updater-windows-helper');
 
 export abstract class AppUpdator extends EventEmitter {
   private state: StateType = StateType.Idle;
@@ -30,7 +30,7 @@ export abstract class AppUpdator extends EventEmitter {
   constructor(options: IAppUpdatorOptions, app?: IAppAdapter) {
     super();
     this.options = options;
-    this._windowHelperExeDir = this.options?.getWindowsHelperExeDir?.() || DEFAULT_EXEFILE_DIR;
+    this._windowHelperExeDir = DEFAULT_EXEFILE_DIR;
     this.logger = this._wrapLogger(options.logger as ILogger);
     this.app = app || new ElectronAppAdapter();
     this.startUuid = this._getStartUuid();

@@ -1,6 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
 import { nanoid } from 'nanoid';
-import path from 'path';
 import {
   ILogger,
   IInstallResult,
@@ -15,8 +14,6 @@ import { downloadFile } from '@/utils/download-file';
 import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo } from '@/utils';
 import { ElectronAppAdapter } from '@/elelctron-app-adapter';
 
-const DEFAULT_EXEFILE_DIR = path.join(__dirname, '..', 'helper');
-
 export abstract class AppUpdator extends EventEmitter {
   private state: StateType = StateType.Idle;
   public updateInfo?: IUpdateInfo | undefined;
@@ -24,13 +21,11 @@ export abstract class AppUpdator extends EventEmitter {
   public availableUpdate: IAvailableUpdate;
   public options?: IAppUpdatorOptions;
   public startUuid: string;
-  protected _windowHelperExeDir: string;
   protected readonly app: IAppAdapter;
 
   constructor(options: IAppUpdatorOptions, app?: IAppAdapter) {
     super();
     this.options = options;
-    this._windowHelperExeDir = this.options?.getWindowsHelperExeDir?.() || DEFAULT_EXEFILE_DIR;
     this.logger = this._wrapLogger(options.logger as ILogger);
     this.app = app || new ElectronAppAdapter();
     this.startUuid = this._getStartUuid();

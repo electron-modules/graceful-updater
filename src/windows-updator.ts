@@ -33,7 +33,7 @@ export class WindowsUpdator extends AppUpdator {
     const { downloadTargetDir, resourcePath, latestAsarPath } = this.availableUpdate;
     this.logger.info('WindowsUpdator#doUnzip:start');
     try {
-      const unzipExe = getExecuteFile(this._windowHelperExeDir, 'unzip.exe');
+      const unzipExe = getExecuteFile('unzip.exe');
       const executeCommand = `"${unzipExe}" -o "${downloadTargetDir}" -d "${resourcePath}"`;
       await execAsync(executeCommand);
 
@@ -83,7 +83,7 @@ export class WindowsUpdator extends AppUpdator {
     const productName = this.options?.productName;
     const { resourcePath } = this.availableUpdate;
     const exePath = this.app.exePath;
-    const updateExePath = getExecuteFile(this._windowHelperExeDir, 'installer.exe');
+    const updateExePath = getExecuteFile('installer.exe');
     const targetPath = path.resolve(exePath, '..', 'resources');
     const executeCommand = `"${updateExePath}" "${targetPath}" "${resourcePath}" "${productName}.exe" "${exePath}"`;
     try {

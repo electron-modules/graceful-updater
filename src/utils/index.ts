@@ -4,6 +4,7 @@ import urllib from 'urllib';
 import sudoPrompt from 'sudo-prompt-alt';
 import rimraf from 'rimraf-alt';
 import { spawn, exec } from 'child_process';
+import { exeFileDir as DEFAULT_EXEFILE_DIR } from 'graceful-updater-windows-helper';
 import { rename, exists, readdir, existsSync, createWriteStream } from 'original-fs';
 import { IUpdateInfo, IAppUpdatorOptions } from '@/common/types';
 import { OldArchivePrefix } from '@/common/constants';
@@ -112,6 +113,6 @@ export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IU
   return res.data;
 };
 
-export const getExecuteFile = (helperExeFileDir: string, file: string) => {
-  return path.join(helperExeFileDir, file);
+export const getExecuteFile = (file: string) => {
+  return path.join(DEFAULT_EXEFILE_DIR, file);
 };

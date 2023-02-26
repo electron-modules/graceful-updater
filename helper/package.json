@@ -1,6 +1,6 @@
 {
   "name": "graceful-updater-windows-helper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "graceful-updater windows helper.",
   "main": "./index.js",
   "keywords": [

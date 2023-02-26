@@ -95,11 +95,11 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 ### 参数
 
-| 字段 | 类型 | 是否必须 | 说明	 | 默认值 |
+| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
 | --- | --- | --- | --- | --- |
 | url | String | 必须 | 检测更新的远程地址，返回数据遵循 `UpdateInfo` 对象 | |
 | ifNeedUpdate | Function | 必须 | 返回是否需要更新 | |
-| updateInfoFormatter | Function | 非必须 | 服务端返回数据格式适配。如果返回的格式无法与 `UpdateInfo` 相匹配时，可通过此方法进行格式化  |
+| updateInfoFormatter | Function | 非必须 | 服务端返回数据格式适配。如果返回的格式无法与 `UpdateInfo` 相匹配时，可通过此方法进行格式化 |
 | logger | Object | 非必须 | 日志 | `console` |
 | productName | String | 必须 | 应用完整名称 | |
 | autoDownload | String | 非必须 | 是否自动下载 | false |
@@ -107,17 +107,17 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 ### UpdateInfo
 
-| 字段 | 类型 | 是否必须 | 说明	 | 默认值 |
+| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
 | --- | --- | --- | --- | --- |
 | version | String | 必须 | 版本号 | |
 | projectVersion | Number | 非必须 | 构建号 | |
 | files | Array\<Object\> | 必须 | 需要下载的文件列表，返回数据遵循 `File` 对象 | |
-| updateType | Enum\<String\> | 必须 | 更新类型，全量更新或者动态更新。Package 为全量更新，Asar 为动态更新 |  |
+| updateType | Enum\<String\> | 必须 | 更新类型，全量更新或者动态更新。Package 为全量更新，Asar 为动态更新 | |
 | releaseNotes | Array\<String\> | 必须 | 更新日志 | |
 
 ### File
 
-| 字段 | 类型 | 是否必须 | 说明	 | 默认值 |
+| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
 | --- | --- | --- | --- | --- |
 | url | String | 必须 | 下载地址 | |
 | signature | String | 非必须 | 下载签名 | |
@@ -181,7 +181,7 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 6. error
 - params：错误信息 `Error`
 
-更新程序内部出现错误时，将触发此事件
+更新程序内部出现错误时触发
 
 <!-- GITCONTRIBUTOR_START -->
 

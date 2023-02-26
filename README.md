@@ -96,11 +96,11 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 ### Options
 
-| Param | Type | Required | Description	 | Default value |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
 | url | String | Yes | Check for update remote address, and the returned data follows the `UpdateInfo` object | |
 | ifNeedUpdate | Function | Yes | Check if update is required | |
-| updateInfoFormatter | Function | No | The server returns data format adaptation. If the returned format cannot match the `UpdateInfo`, this method can be used to format  |
+| updateInfoFormatter | Function | No | The server returns data format adaptation. If the returned format cannot match the `UpdateInfo`, this method can be used to format |
 | logger | Object | No | Log method | `console` |
 | productName | String | Yes | Application Name | |
 | autoDownload | String | No | Whether to download automatically | false |
@@ -108,17 +108,17 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 ### UpdateInfo
 
-| Param | Type | Required | Description	 | Default value |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
 | version | String | Yes | version | |
 | projectVersion | Number | No | project version | |
 | files | Array\<Object\> | Yes | The list of files to be downloaded. The returned data follows the `File` object | |
-| updateType | Enum\<String\> | Yes | Update type, full update or dynamic update.Package is full update，Asar is dynamic update |  |
+| updateType | Enum\<String\> | Yes | Update type, full update or dynamic update.Package is full update，Asar is dynamic update | |
 | releaseNotes | Array\<String\> | Yes | The release notes. | |
 
 ### File
 
-| Param | Type | Required | Description	 | Default value |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
 | url | String | No | download address | |
 | signature | String | No | download address signature | |
@@ -181,7 +181,7 @@ Triggered when the download is complete
 6. error
 - params: `Error`
 
-This event will be triggered when an error occurs inside the updater
+Triggered when an error occurs inside the updater
 
 <!-- GITCONTRIBUTOR_START -->
 

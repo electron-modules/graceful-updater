@@ -21,12 +21,14 @@ export abstract class AppUpdator extends EventEmitter {
   public availableUpdate: IAvailableUpdate;
   public options?: IAppUpdatorOptions;
   public startUuid: string;
+  protected _windowHelperExeDir?: string;
   protected readonly app: IAppAdapter;
 
   constructor(options: IAppUpdatorOptions, app?: IAppAdapter) {
     super();
     this.options = options;
     this.logger = this._wrapLogger(options.logger as ILogger);
+    this._windowHelperExeDir = this.options.getWindowsHelperExeDir?.();
     this.app = app || new ElectronAppAdapter();
     this.startUuid = this._getStartUuid();
     this.logger.info('constructor');

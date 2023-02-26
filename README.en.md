@@ -14,9 +14,9 @@
 [download-image]: https://img.shields.io/npm/dm/graceful-updater.svg
 [download-url]: https://npmjs.org/package/graceful-updater
 
-> Electron 应用软件更新解决方案，方便完成软件的全量更新和动态更新。
+> Software updates solution for Electron applications, It is convenient to complete full software update and dynamic update.
 
-[English](./README.md) | 简体中文
+English | [简体中文](./README.md) 
 
 ## Installment
 
@@ -24,12 +24,12 @@
 $ npm i graceful-updater --save
 ```
 
-## 样例
+## Sample
 
-点击查看： https://github.com/electron-modules/electron-modules-sample
+please visit: https://github.com/electron-modules/electron-modules-sample
 
 ```typescript
-// 1. 构造 options
+// 1. options
 const options = {
   url: getFeedUrl(),
   logger: console, // logger
@@ -46,9 +46,10 @@ const options = {
       res.project_version > currentBuildNumber;
   },
 };
-// 2. 初始化 updator 实例
+// 2. initialization
 const electronUpdator = new MacUpdator(options);
-// 3. 绑定全局事件
+
+// 3. Bind events
 electronUpdator.on(EventType.UPDATE_DOWNLOADED, (...args) => {
   console.log('updator >> %s, args: %j', EventType.UPDATE_DOWNLOADED, args);
 });
@@ -91,97 +92,96 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 });
 ```
 
-## 文档
+## Documents
 
-### 参数
+### Options
 
-| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
-| url | String | 必须 | 检测更新的远程地址，返回数据遵循 `UpdateInfo` 对象 | |
-| ifNeedUpdate | Function | 必须 | 返回是否需要更新 | |
-| updateInfoFormatter | Function | 非必须 | 服务端返回数据格式适配。如果返回的格式无法与 `UpdateInfo` 相匹配时，可通过此方法进行格式化 |
-| logger | Object | 非必须 | 日志 | `console` |
-| productName | String | 必须 | 应用完整名称 | |
-| autoDownload | String | 非必须 | 是否自动下载 | false |
+| url | String | Yes | Check for update remote address, and the returned data follows the `UpdateInfo` object | |
+| ifNeedUpdate | Function | Yes | Check if update is required | |
+| updateInfoFormatter | Function | No | The server returns data format adaptation. If the returned format cannot match the `UpdateInfo`, this method can be used to format |
+| logger | Object | No | Log method | `console` |
+| productName | String | Yes | Application Name | |
+| autoDownload | String | No | Whether to download automatically | false |
 
 
 ### UpdateInfo
 
-| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
-| version | String | 必须 | 版本号 | |
-| projectVersion | Number | 非必须 | 构建号 | |
-| files | Array\<Object\> | 必须 | 需要下载的文件列表，返回数据遵循 `File` 对象 | |
-| updateType | Enum\<String\> | 必须 | 更新类型，全量更新或者动态更新。Package 为全量更新，Asar 为动态更新 | |
-| releaseNotes | Array\<String\> | 必须 | 更新日志 | |
+| version | String | Yes | version | |
+| projectVersion | Number | No | project version | |
+| files | Array\<Object\> | Yes | The list of files to be downloaded. The returned data follows the `File` object | |
+| updateType | Enum\<String\> | Yes | Update type, full update or dynamic update.Package is full update，Asar is dynamic update | |
+| releaseNotes | Array\<String\> | Yes | The release notes. | |
 
 ### File
 
-| 字段 | 类型 | 是否必须 | 说明 | 默认值 |
+| Param | Type | Required | Description | Default value |
 | --- | --- | --- | --- | --- |
-| url | String | 必须 | 下载地址 | |
-| signature | String | 非必须 | 下载签名 | |
-| updateType | Enum\<String\> | 必须 | 更新类型，针对动态更新或全量更新提供的下载地址。Package or Asar | |
+| url | String | No | download address | |
+| signature | String | No | download address signature | |
+| updateType | Enum\<String\> | Yes | Update type, full update or dynamic update.Package is full update，Asar is dynamic update | |
 
-### 方法
+### Methods
 
 1. checkForUpdates(ExecuteType)
 
-- `ExecuteType` 执行类型（User or Auto）
+- `ExecuteType` ExecuteType(User or Auto)
 
-检测是否有需要更新的内容，如果 `ExecuteType` 为 User，则检查到更新后直接触发 `update-available` 事件，否则将自动下载完成安装包后触发 `update-available` 事件
+Check whether there is content to be updated. If the `ExecuteType` is User, the `update-available` event will be triggered directly after the update is detected. Otherwise, the `update-available` event will be triggered after the package is automatically downloaded
 
 2. setFeedUrl(url)
 
-- url 新的更新 URL
-根据不同场景需要，动态设置检查更新的 URL
+- url: New update URL
+According to the needs of different scenarios, dynamically set the URL for checking updates
 
 2. downloadUpdate(ExecuteType)
 
-- `ExecuteType` 执行类型（User or Auto）
+- `ExecuteType` ExecuteType(User or Auto)
 
-开始下载安装包，如果 `ExecuteType` 为 User，则不进行预检查，下载完成后直接触发 `update-downloaded` 事件，否则完成内部完成预检查后再触发 `update-downloaded` 事件
+Start downloading the installation package. If the `ExecuteType` is User, no pre-check will be performed. After the download is completed, the `update-downloaded` event will be triggered directly. Otherwise, the `update-downloaded` event will be triggered after the internal pre-check is completed
+
 
 3. quitAndInstall()
-退出应用并开始安装。如果安装包已下载完成，将直接重启应用并进行新版本安装。否则进入下载流程
+Exit the app and start the installation. If the installation package has been downloaded, the application will be restarted directly and the new version will be installed. Otherwise, enter the download process
 
-
-### 事件
+### Events
 
 1. checking-for-update
 
-当开始检查更新的时候触发
+Triggered when checking for updates
 
 2. update-available
-- params：更新信息
-- params.updateInfo：本次更新的信息 `UpdateInfo`
+- params: update info
+- params.updateInfo: `UpdateInfo`
 
-检测到有可用更新时触发
+Triggered when an available update is checked
 
 3. update-not-available
-- params：更新信息
-- params.updateInfo：本次更新的信息 `UpdateInfo`
+- params: update info
+- params.updateInfo: `UpdateInfo`
  
-检测到无可用更新时触发
+Triggered when no updates are checked
 
 4. update-download-progress
 
-- params：下载过程中的进度及文件流信息。
-- params.status 下载状态。 `begin` 开始下载，`downloading` 下载中，`end` 下载结束
-- params.progress 当前下载进度百分比，0 ~ 100
-- params.data 下载内容的文件流，可利用此数据进行签名校验
+- params: status and file info the download process.
+- params.status: download status `begin`, `downloading`, `end`
+- params.progress: Current download progress percentage. 0 ~ 100
+- params.data: The file stream of downloaded content can be used for signature verification
 
-
-正在下载过程中触发
+Triggering during download
 
 5. update-downloaded
 
-完成下载时触发
+Triggered when the download is complete
 
 6. error
-- params：错误信息 `Error`
+- params: `Error`
 
-更新程序内部出现错误时触发
+Triggered when an error occurs inside the updater
 
 <!-- GITCONTRIBUTOR_START -->
 

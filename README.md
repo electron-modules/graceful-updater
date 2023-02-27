@@ -103,6 +103,7 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 | logger | Object | 非必须 | 日志 | `console` |
 | productName | String | 必须 | 应用完整名称 | |
 | autoDownload | String | 非必须 | 是否自动下载 | false |
+| getWindowsHelperExeDir | Function | 非必须 | Windows 下 helper 目录 | false |
 
 
 ### UpdateInfo

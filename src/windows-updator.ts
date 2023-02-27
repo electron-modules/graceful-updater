@@ -1,11 +1,11 @@
 import path from 'path';
 import { shell } from 'electron';
-import { unzipExeFilePath, installerExeFilePath } from 'graceful-updater-windows-helper';
+import { unzipExeFileName, installerExeFileName } from 'graceful-updater-windows-helper';
 import { IInstallResult, IUpdateInfo, IAvailableUpdate } from '@/common/types';
 import { UpdateType, FileName } from '@/common/constants';
 import { sudoPromptExec } from '@/utils/sudo-prompt-exec';
 import { AppUpdator } from '@/app-updator';
-import { execAsync, existsAsync, renameAsync } from '@/utils';
+import { execAsync, existsAsync, getExecuteFile, renameAsync } from '@/utils';
 
 export class WindowsUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
@@ -34,11 +34,11 @@ export class WindowsUpdator extends AppUpdator {
     const { downloadTargetDir, resourcePath, latestAsarPath } = this.availableUpdate;
     this.logger.info('WindowsUpdator#doUnzip:start');
     try {
-      const unzipExe = unzipExeFilePath;
+      const unzipExe = getExecuteFile(this._windowHelperExeDir as string, unzipExeFileName);
       const executeCommand = `"${unzipExe}" -o "${downloadTargetDir}" -d "${resourcePath}"`;
       await execAsync(executeCommand);
 
-      if (!await existsAsync(latestAsarPath)) {
+      if (!(await existsAsync(latestAsarPath))) {
         const zipInfoCommand = `"${unzipExe}" -Z -1 "${downloadTargetDir}"`;
         const zipInfo = await execAsync(zipInfoCommand, {
           cwd: resourcePath,
@@ -84,7 +84,7 @@ export class WindowsUpdator extends AppUpdator {
     const productName = this.options?.productName;
     const { resourcePath } = this.availableUpdate;
     const exePath = this.app.exePath;
-    const updateExePath = installerExeFilePath;
+    const updateExePath = getExecuteFile(this._windowHelperExeDir as string, installerExeFileName);
     const targetPath = path.resolve(exePath, '..', 'resources');
     const executeCommand = `"${updateExePath}" "${targetPath}" "${resourcePath}" "${productName}.exe" "${exePath}"`;
     try {

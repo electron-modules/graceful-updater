@@ -104,6 +104,7 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 | logger | Object | No | Log method | `console` |
 | productName | String | Yes | Application Name | |
 | autoDownload | String | No | Whether to download automatically | false |
+| getWindowsHelperExeDir | Function | No | Windows helper directory | false |
 
 
 ### UpdateInfo

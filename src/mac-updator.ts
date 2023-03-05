@@ -43,13 +43,13 @@ export class MacUpdator extends AppUpdator {
     this.logger.info('MacUpdator#doUnzip:start, unzip %s, to %s', downloadTargetDir, resourcePath);
     try {
       // 直接解压
-      await execAsync(`unzip -o ${downloadTargetDir}`, {
+      await execAsync(`unzip -o '${downloadTargetDir}'`, {
         cwd: resourcePath,
         maxBuffer: 2 ** 28,
       });
 
       if (!await existsAsync(latestAsarPath)) {
-        const zipInfo = await execAsync(`unzip -Z -1 ${downloadTargetDir}`, {
+        const zipInfo = await execAsync(`unzip -Z -1 '${downloadTargetDir}'`, {
           cwd: resourcePath,
           maxBuffer: 2 ** 28,
         });
@@ -88,7 +88,9 @@ export class MacUpdator extends AppUpdator {
     }
     const { resourcePath, latestAsarPath } = this.availableUpdate;
     const oldAsarPath = path.resolve(resourcePath, `${OldArchivePrefix}${new Date().getTime()}.asar`);
-    const currentAsarPath = path.resolve(resourcePath, 'app.asar');
+    const exePath = this.app.exePath;
+    const currentPath = path.resolve(exePath, '..', '..', 'Resources');
+    const currentAsarPath = path.resolve(currentPath, 'app.asar');
     try {
       // 将老包改名 app.asar => old-xxxx.asar
       if (await existsAsync(currentAsarPath)) {

@@ -162,6 +162,27 @@ export abstract class AppUpdator extends EventEmitter {
     }
   }
 
+  public async install(): Promise<IInstallResult> {
+    this.logger.info(`install:state is ${this.state}`);
+    let result = { success: false } as IInstallResult;
+    this.setState(StateType.Idle);
+    try {
+      this.emit(EventType.BEFORE_QUIT_FOR_UPDATE);
+      if (this.updateInfo?.updateType === UpdateType.Package) {
+        result = await this.doInstallPackage();
+      } else {
+        result = await this.doInstallAsar();
+      }
+      if (!result.success) {
+        result.message = `error: ${result.error?.message}`;
+        this.dispatchError(result.error as Error);
+      }
+    } catch (e) {
+      this.dispatchError(e);
+    }
+    return result;
+  }
+
   protected async preCheckForAsar(): Promise<IInstallResult> {
     this.logger.info('preCheckForAsar');
     return await this.unzip();
@@ -277,6 +298,8 @@ export abstract class AppUpdator extends EventEmitter {
   protected abstract doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate;
   protected abstract doPreCheckForPackage(): Promise<IInstallResult>;
   protected abstract doQuitAndInstallAsar(): Promise<IInstallResult>;
+  protected abstract doInstallAsar(): Promise<IInstallResult>;
   protected abstract doQuitAndInstallPackage(): Promise<IInstallResult>;
+  protected abstract doInstallPackage(): Promise<IInstallResult>;
   protected abstract doUnzip(): Promise<IInstallResult>;
 }

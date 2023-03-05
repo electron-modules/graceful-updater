@@ -8,8 +8,7 @@ import { execAsync, existsAsync, renameAsync } from '@/utils';
 export class MacUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {
     this.logger.info('MacUpdator#doGetAvailableUpdateInfo:start');
-    const exePath = this.app.exePath;
-    const resourcePath = path.resolve(exePath, '..', '..', 'Resources');
+    const resourcePath = path.resolve(this.app.userDataPath);
     const latestAsarPath = path.resolve(resourcePath, FileName.TARGET_REPLACEMENT_ASAR);
     const latestAppPath = path.resolve(resourcePath, 'latest');
     let downloadTargetDir = `${latestAsarPath}.zip`;
@@ -73,6 +72,15 @@ export class MacUpdator extends AppUpdator {
   }
 
   protected override async doQuitAndInstallAsar(): Promise<IInstallResult> {
+    const result = await this.doInstallAsar();
+    if (result.success) {
+      this.logger.warn('MacUpdator#quitAndInstall:install success');
+      this.app.relaunch();
+    }
+    return result;
+  }
+
+  protected override async doInstallAsar(): Promise<IInstallResult> {
     this.logger.info('MacUpdator#doQuitAndInstallAsar:start');
     if (!this.availableUpdate) {
       this.logger.error('MacUpdator#doQuitAndInstallAsar:not availableUpdate');
@@ -103,20 +111,23 @@ export class MacUpdator extends AppUpdator {
         error,
       };
     }
-    this.logger.warn('MacUpdator#quitAndInstall:install success');
-    this.app.relaunch();
     return {
       success: true,
     };
   }
 
-  protected override async doQuitAndInstallPackage() {
-    this.logger.info('MacUpdator#doQuitAndInstallPackage:start');
-    const result = await installMacosDmg(this.options as IAppUpdatorOptions, this.logger, this.availableUpdate, this.updateInfo as IUpdateInfo);
+  protected override async doQuitAndInstallPackage(): Promise<IInstallResult> {
+    const result = await this.doInstallPackage();
     if (result.success) {
-      this.logger.warn('quitAndInstall:install success');
+      this.logger.warn('MacUpdator#quitAndInstall:install success');
       this.app.relaunch();
     }
+    return result;
+  }
+
+  protected override async doInstallPackage() {
+    this.logger.info('MacUpdator#doQuitAndInstallPackage:start');
+    const result = await installMacosDmg(this.options as IAppUpdatorOptions, this.logger, this.availableUpdate, this.updateInfo as IUpdateInfo);
     return result;
   }
 }

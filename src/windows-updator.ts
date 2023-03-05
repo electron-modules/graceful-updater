@@ -62,6 +62,10 @@ export class WindowsUpdator extends AppUpdator {
     };
   }
 
+  protected override async doInstallPackage(): Promise<IInstallResult> {
+    return { success: false };
+  }
+
   protected override async doQuitAndInstallPackage(): Promise<IInstallResult> {
     this.logger.info('WindowsUpdator#doQuitAndInstallPackage:success');
     const { downloadTargetDir } = this.availableUpdate;
@@ -77,6 +81,10 @@ export class WindowsUpdator extends AppUpdator {
     } catch (error) {
       return Promise.resolve({ success: false, error });
     }
+  }
+
+  protected override async doInstallAsar(): Promise<IInstallResult> {
+    return { success: false };
   }
 
   protected override async doQuitAndInstallAsar(): Promise<IInstallResult> {

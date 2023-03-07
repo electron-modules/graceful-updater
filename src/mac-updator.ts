@@ -11,10 +11,10 @@ export class MacUpdator extends AppUpdator {
     const exePath = this.app.exePath;
     const resourcePath = path.resolve(exePath, '..', '..', 'Resources');
     const latestAsarPath = path.resolve(resourcePath, FileName.TARGET_REPLACEMENT_ASAR);
-    const latestAppPath = path.resolve(resourcePath, 'latest');
+
     let downloadTargetDir = `${latestAsarPath}.zip`;
     if (updateInfo.updateType === UpdateType.Package) {
-      downloadTargetDir = `${latestAppPath}.dmg`;
+      downloadTargetDir = path.resolve(path.resolve(this.app.userDataPath), 'latest.dmg');
     }
     return {
       resourcePath,

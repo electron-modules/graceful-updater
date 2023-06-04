@@ -186,13 +186,13 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 <!-- GITCONTRIBUTOR_START -->
 
-## Contributors
+## 贡献者
 
 |[<img src="https://avatars.githubusercontent.com/u/4081746?v=4" width="100px;"/><br/><sub><b>zlyi</b></sub>](https://github.com/zlyi)<br/>|[<img src="https://avatars.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>|[<img src="https://avatars.githubusercontent.com/u/52845048?v=4" width="100px;"/><br/><sub><b>snapre</b></sub>](https://github.com/snapre)<br/>|
 | :---: | :---: | :---: |
 
 
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Tue Jan 31 2023 14:31:40 GMT+0800`.
+[git-contributor 说明](https://github.com/xudafeng/git-contributor)，自动生成时间：`Sun Jun 04 2023 13:22:25 GMT+0800`。
 
 <!-- GITCONTRIBUTOR_END -->
 

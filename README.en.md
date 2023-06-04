@@ -192,7 +192,7 @@ Triggered when an error occurs inside the updater
 | :---: | :---: | :---: |
 
 
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Tue Jan 31 2023 14:31:40 GMT+0800`.
+This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Sun Jun 04 2023 13:22:25 GMT+0800`.
 
 <!-- GITCONTRIBUTOR_END -->
 

@@ -1,6 +1,6 @@
 {
   "name": "graceful-updater",
-  "version": "1.2.0",
+  "version": "34.0.0",
   "description": "graceful-updater is a software updator management solution for Electron applications, It is convenient to complete full software update and dynamic update.",
   "scripts": {
     "build": "sh ./build.sh",
@@ -46,8 +46,8 @@
     "cross-env": "^7.0.3",
     "detect-port": "1",
     "egg-bin": "^5.9.0",
-    "electron": "18",
-    "electron-windows": "18",
+    "electron": "34",
+    "electron-windows": "34",
     "eslint": "^7.32.0",
     "eslint-config-egg": "^12.1.0",
     "eslint-plugin-no-only-tests": "^3.1.0",

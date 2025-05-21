@@ -2,4 +2,4 @@
 rm -rf ./build
 
 # 2. tsc compile 
-`npm bin`/ttsc -p tsconfig.json
+npx ttsc -p tsconfig.json

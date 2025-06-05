@@ -1,4 +1,4 @@
-import { IAppAdapter } from '@/common/types';
+import { IAppAdapter } from './common/types';
 import { app as electronApp } from 'electron';
 
 export class ElectronAppAdapter implements IAppAdapter {

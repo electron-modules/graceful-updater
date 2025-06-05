@@ -8,11 +8,11 @@ import {
   IAvailableUpdate,
   IAppAdapter,
   IDownloadFileOptions,
-} from '@/common/types';
-import { InstallResultType, StateType, ExecuteType, UpdateType, EventType } from '@/common/constants';
-import { downloadFile } from '@/utils/download-file';
-import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo } from '@/utils';
-import { ElectronAppAdapter } from '@/elelctron-app-adapter';
+} from './common/types';
+import { InstallResultType, StateType, ExecuteType, UpdateType, EventType } from './common/constants';
+import { downloadFile } from './utils/download-file';
+import { cleanOldArchive, existFile, existsAsync, requestUpdateInfo } from './utils';
+import { ElectronAppAdapter } from './elelctron-app-adapter';
 
 export abstract class AppUpdator extends EventEmitter {
   private state: StateType = StateType.Idle;

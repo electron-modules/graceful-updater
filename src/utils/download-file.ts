@@ -1,6 +1,6 @@
 import urllib from 'urllib';
-import { IDownloadFileOptions } from '@/common/types';
-import { DownloadProgressStatus } from '@/common/constants';
+import { IDownloadFileOptions } from '../common/types';
+import { DownloadProgressStatus } from '../common/constants';
 import { createWriteStream } from '.';
 
 /**

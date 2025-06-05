@@ -10,11 +10,11 @@
       "@/*": ["../src/*"]
     },
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "jsx": "react-jsx",
     "strict": true,
     "pretty": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "baseUrl": "./src/",
     "noUnusedLocals": true,
     "noUnusedParameters": true,

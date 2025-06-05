@@ -1,9 +1,9 @@
 import path from 'path';
-import { AppUpdator } from '@/app-updator';
-import { IInstallResult, IUpdateInfo, IAvailableUpdate, IAppUpdatorOptions } from '@/common/types';
-import { OldArchivePrefix, UpdateType, FileName } from '@/common/constants';
-import installMacosDmg from '@/utils/install-macos-dmg';
-import { execAsync, existsAsync, renameAsync } from '@/utils';
+import { AppUpdator } from './app-updator';
+import { IInstallResult, IUpdateInfo, IAvailableUpdate, IAppUpdatorOptions } from './common/types';
+import { OldArchivePrefix, UpdateType, FileName } from './common/constants';
+import installMacosDmg from './utils/install-macos-dmg';
+import { execAsync, existsAsync, renameAsync } from './utils';
 
 export class MacUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {

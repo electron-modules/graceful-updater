@@ -1,4 +1,4 @@
-import { ILogger } from 'common/types';
+import { ILogger } from '@/common/types';
 import { sudoPrompt } from './index';
 
 function sudoPromptExec(logger: ILogger, shell: string) {

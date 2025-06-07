@@ -1,11 +1,11 @@
 import path from 'path';
 import { shell } from 'electron';
 import { unzipExeFileName, installerExeFileName } from 'graceful-updater-windows-helper';
-import { IInstallResult, IUpdateInfo, IAvailableUpdate } from './common/types';
-import { UpdateType, FileName } from './common/constants';
-import { sudoPromptExec } from './utils/sudo-prompt-exec';
-import { AppUpdator } from './app-updator';
-import { execAsync, existsAsync, getExecuteFile, renameAsync } from './utils';
+import { IInstallResult, IUpdateInfo, IAvailableUpdate } from '@/common/types';
+import { UpdateType, FileName } from '@/common/constants';
+import { sudoPromptExec } from '@/utils/sudo-prompt-exec';
+import { AppUpdator } from '@/app-updator';
+import { execAsync, existsAsync, getExecuteFile, renameAsync } from '@/utils';
 
 export class WindowsUpdator extends AppUpdator {
   protected override doGetAvailableUpdateInfo(updateInfo: IUpdateInfo): IAvailableUpdate {

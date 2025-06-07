@@ -4,7 +4,7 @@ import { waitUntil, getMacOSAppPath } from '.';
 import {
   IInstallResult, IAppUpdatorOptions,
   IUpdateInfo, ILogger, IAvailableUpdate,
-} from '../common/types';
+} from '@/common/types';
 import { spawnAsync, existsSync } from './index';
 
 const _log = (logger: ILogger, e: any) => {

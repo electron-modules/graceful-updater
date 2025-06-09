@@ -1,4 +1,4 @@
-import { UpdateType } from '@/common/constants';
+import { UpdateType, InstallResultType, DownloadProgressStatus } from '../constants';
 
 export interface ILogger {
   info(message: string, ...args: any[]): void;
@@ -54,12 +54,17 @@ export interface IAppUpdatorOptions {
   getWindowsHelperExeDir?: () => string;
 }
 
+interface IProgressHandleArg {
+  status: DownloadProgressStatus;
+  [key: string]: any;
+}
+
 export interface IDownloadFileOptions {
   logger: ILogger;
   url: string;
   signature: string;
   targetDir: string;
-  progressHandle: (status: DownloadProgressStatus) => void;
+  progressHandle: (progress: IProgressHandleArg) => void;
 }
 
 export interface IAvailableUpdate {

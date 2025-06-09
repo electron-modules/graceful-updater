@@ -2,4 +2,7 @@
 rm -rf ./build
 
 # 2. tsc compile 
-npx ttsc -p tsconfig.json
+./node_modules/.bin/ttsc -p tsconfig.json
+
+# 3. copy custom dts files
+cp -r ./src/common/types ./build/common

@@ -188,11 +188,11 @@ electronUpdator.on(EventType.UPDATE_DOWNLOAD_PROGRESS, (data) => {
 
 ## 贡献者
 
-|[<img src="https://avatars.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>|[<img src="https://avatars.githubusercontent.com/u/4081746?v=4" width="100px;"/><br/><sub><b>zlyi</b></sub>](https://github.com/zlyi)<br/>|[<img src="https://avatars.githubusercontent.com/u/52845048?v=4" width="100px;"/><br/><sub><b>snapre</b></sub>](https://github.com/snapre)<br/>|[<img src="https://avatars.githubusercontent.com/u/46579290?v=4" width="100px;"/><br/><sub><b>yinrouni</b></sub>](https://github.com/yinrouni)<br/>|
-| :---: | :---: | :---: | :---: |
+|[<img src="https://avatars.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>|[<img src="https://avatars.githubusercontent.com/u/4081746?v=4" width="100px;"/><br/><sub><b>zlyi</b></sub>](https://github.com/zlyi)<br/>|[<img src="https://avatars.githubusercontent.com/u/30524126?v=4" width="100px;"/><br/><sub><b>z0gSh1u</b></sub>](https://github.com/z0gSh1u)<br/>|[<img src="https://avatars.githubusercontent.com/u/11213298?v=4" width="100px;"/><br/><sub><b>WynterDing</b></sub>](https://github.com/WynterDing)<br/>|[<img src="https://avatars.githubusercontent.com/u/52845048?v=4" width="100px;"/><br/><sub><b>snapre</b></sub>](https://github.com/snapre)<br/>|[<img src="https://avatars.githubusercontent.com/u/46579290?v=4" width="100px;"/><br/><sub><b>yinrouni</b></sub>](https://github.com/yinrouni)<br/>|
+| :---: | :---: | :---: | :---: | :---: | :---: |
 
 
-[git-contributor 说明](https://github.com/xudafeng/git-contributor)，自动生成时间：`Wed May 21 2025 20:05:27 GMT+0800`。
+[git-contributor 说明](https://github.com/xudafeng/git-contributor)，自动生成时间：`Tue Jun 10 2025 19:00:22 GMT+0800`。
 
 <!-- GITCONTRIBUTOR_END -->
 

@@ -92,7 +92,7 @@ export const existFile = async (path: string): Promise<boolean> => {
 };
 
 export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IUpdateInfo> => {
-  const { url } = options;
+  const { url, headers } = options;
   if (!url) {
     throw new Error('request url can\'t be empty');
   }
@@ -102,6 +102,7 @@ export const requestUpdateInfo = async (options: IAppUpdatorOptions): Promise<IU
     res = await urllib.request(url, {
       dataType: 'json',
       timeout: 10 * 1000,
+      headers,
     });
   } catch (e) {
     throw e;

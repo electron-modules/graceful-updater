@@ -12,7 +12,7 @@ import { createWriteStream } from '.';
  * @param progressHandle 下载状态回调
  * @return
  */
-export const downloadFile = async ({ logger, url, signature, targetDir, progressHandle }: IDownloadFileOptions) => {
+export const downloadFile = async ({ logger, url, signature, targetDir, progressHandle, headers }: IDownloadFileOptions) => {
   logger.info('downloadFile#downloadFile (start)');
   const writeStream = createWriteStream(targetDir);
   let currentLength = 0;
@@ -26,6 +26,7 @@ export const downloadFile = async ({ logger, url, signature, targetDir, progress
         streaming: true,
         followRedirect: true,
         timeout: 10 * 60 * 1000,
+        headers,
       })
       .then((res: any) => {
         const totalLength = res.headers['content-length'];

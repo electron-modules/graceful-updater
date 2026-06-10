@@ -52,6 +52,7 @@ export interface IAppUpdatorOptions {
   autoDownload?: boolean;
   productName?: string;
   getWindowsHelperExeDir?: () => string;
+  headers?: Record<string, string>;
 }
 
 interface IProgressHandleArg {
@@ -65,6 +66,7 @@ export interface IDownloadFileOptions {
   signature: string;
   targetDir: string;
   progressHandle: (progress: IProgressHandleArg) => void;
+  headers?: Record<string, string>;
 }
 
 export interface IAvailableUpdate {

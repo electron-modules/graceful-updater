@@ -232,6 +232,7 @@ export abstract class AppUpdator extends EventEmitter {
         progressHandle: (data: any) => {
           this.emit(EventType.UPDATE_DOWNLOAD_PROGRESS, { ...data, executeType });
         },
+        headers: this.options?.headers,
       } as IDownloadFileOptions);
       this.logger.info('downloadUpdateFile:Downloaded');
       this.setState(StateType.Downloaded);
